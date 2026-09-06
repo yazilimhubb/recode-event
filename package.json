@@ -1,7 +1,7 @@
 {
   "name": "81-sancak",
-  "version": "0.1.0",
-  "description": "Recode etkinligi icin bilerek basit birakilmis Osmanli temali demo. Saf HTML/CSS/JS frontend + Express backend.",
+  "version": "0.2.0",
+  "description": "Recode etkinligi icin bilerek basit birakilmis Osmanli temali demo. Saf HTML/CSS/JS frontend + Express backend. Bu surumde: ortak CSS, XSS duzeltmesi, kalici veri, dogrulama, oy kilidi.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

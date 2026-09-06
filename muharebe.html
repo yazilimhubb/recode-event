@@ -6,34 +6,10 @@
 <title>Meydan Muharebesi — 81 SANCAK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 
-<!-- RECODE NOTU: bu sayfanin CSS'i index.html ile buyuk olcude ayni. -->
-<!-- Tekrar var! Ortak bir style.css'e cikarmak guzel bir recode adimi olur. -->
+<!-- RECODE: ortak CSS artik styles.css'te; burada sayfaya ozgu stiller. -->
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0c0b09;color:#e9e2d0;font-family:'Inter',sans-serif;min-height:100vh;
-  background-image:radial-gradient(circle at 50% -10%, rgba(212,175,55,0.10), transparent 55%);}
-a{color:inherit;text-decoration:none}
-.cinzel{font-family:'Cinzel',serif}
-.navbar{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;
-  border-bottom:1px solid #2a2418;background:#0f0d0a;position:sticky;top:0;z-index:50}
-.logo{display:flex;align-items:center;gap:12px}
-.logo .kutu{width:44px;height:44px;border-radius:10px;background:linear-gradient(145deg,#d4af37,#8a6d1c);
-  display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 18px rgba(212,175,55,0.55)}
-.logo b{font-family:'Cinzel',serif;font-size:20px;letter-spacing:1px}
-.logo small{display:block;color:#9c9282;font-size:11px;letter-spacing:3px}
-.nav-links{display:flex;gap:22px;align-items:center}
-.nav-links a{color:#c9bfa8;font-size:14px;font-weight:500;transition:.2s}
-.nav-links a:hover{color:#f0d264;text-shadow:0 0 10px rgba(240,210,100,.6)}
-.btn{cursor:pointer;border:none;border-radius:9px;padding:10px 18px;font-size:14px;font-weight:600;
-  transition:.2s;font-family:'Inter',sans-serif}
-.btn-altin{background:linear-gradient(145deg,#e6c65c,#b8901f);color:#1a1408;box-shadow:0 0 16px rgba(212,175,55,.4)}
-.btn-altin:hover{box-shadow:0 0 26px rgba(212,175,55,.75);transform:translateY(-1px)}
-.btn-hayalet{background:transparent;color:#e9e2d0;border:1px solid #3a3223}
-.btn-hayalet:hover{border-color:#d4af37;color:#f0d264}
-.nokta{width:7px;height:7px;border-radius:50%;background:#ff5c5c;box-shadow:0 0 8px #ff5c5c;animation:yanip 1.2s infinite}
-@keyframes yanip{50%{opacity:.3}}
-
 /* ---- muharebe alani ---- */
 .arena{max-width:1180px;margin:34px auto;padding:0 20px}
 .muharebe-kart{
@@ -41,8 +17,6 @@ a{color:inherit;text-decoration:none}
   box-shadow:0 24px 60px rgba(0,0,0,.5);
 }
 .m-ust{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
-.canli{display:inline-flex;align-items:center;gap:6px;background:#3a1414;color:#ff7676;
-  padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px}
 .m-baslik{display:flex;align-items:center;gap:14px;margin-top:10px}
 .m-baslik .ikon{width:46px;height:46px;border-radius:11px;background:linear-gradient(145deg,#d4af37,#8a6d1c);
   display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 18px rgba(212,175,55,.5)}
@@ -56,9 +30,6 @@ a{color:inherit;text-decoration:none}
 .taraf{background:linear-gradient(160deg,#161310,#0f0d0a);border:1px solid #2f2819;border-radius:16px;padding:22px}
 .taraf.onde{border-color:#d4af37;box-shadow:0 0 28px rgba(212,175,55,.22)}
 .t-ust{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
-.plaka{background:#241d10;color:#e6c65c;border:1px solid #4a3d1d;border-radius:8px;
-  padding:6px 10px;font-family:'Cinzel',serif;font-weight:700;text-align:center;line-height:1}
-.plaka small{display:block;font-size:9px;letter-spacing:1px;color:#9c8b5f}
 .t-ad{font-family:'Cinzel',serif;font-size:22px}
 .t-yer{color:#9c9282;font-size:13px}
 .t-yuzde{font-family:'Cinzel',serif;font-size:34px;color:#f0d264;text-shadow:0 0 14px rgba(240,210,100,.4)}
@@ -83,9 +54,6 @@ a{color:inherit;text-decoration:none}
   margin-top:24px;padding-top:18px;border-top:1px solid #221d13}
 .paylas .sol{color:#9c9282;font-size:14px}
 .paylas .sol b{color:#e6c65c}
-.btn-yesil{background:#128a4a;color:#fff}
-.btn-yesil:hover{box-shadow:0 0 18px rgba(18,138,74,.6)}
-footer{border-top:1px solid #221d13;text-align:center;padding:24px;color:#6b5f45;font-size:13px}
 </style>
 </head>
 <body>
@@ -159,7 +127,7 @@ footer{border-top:1px solid #221d13;text-align:center;padding:24px;color:#6b5f45
         <div class="a" id="barA" style="width:51%"></div>
         <div class="b" id="barB" style="width:49%"></div>
       </div>
-      <div class="kural">⏱ Her sancak neferi 30 dakikada bir oy kullanabilir. (RECODE: sure kilidi henuz yok, sen ekle!)</div>
+      <div class="kural" id="kuralMetni">⏱ Her sancak neferi 30 dakikada bir oy kullanabilir.</div>
     </div>
 
     <div class="paylas">
@@ -176,11 +144,19 @@ footer{border-top:1px solid #221d13;text-align:center;padding:24px;color:#6b5f45
   <b>81 SANCAK</b> — Meydan Muharebesi · Oylar backend'e (<code style="color:#e6c65c">/api/oy</code>) gider, kapaliysa yerelde tutulur.
 </footer>
 
-<!-- RECODE NOTU: Oy verme mantigi cok basit ve sure kilidi yok. -->
-<!-- Iyilestirme fikirleri: 30dk kilidi, sahte oy engeli, gercek zamanli guncelleme, animasyon. -->
+<!-- RECODE (tamamlandi): 30dk oy kilidi eklendi -- hem tarayicida (buton
+     kilitlenir, geri sayim gosterilir) hem sunucuda (backend IP basina
+     429 dondurur, bkz. server.js). Sunucu 429 dondugunde artik yerelde
+     sessizce oy arttirilmiyor -- eskiden HER hata (gercek ag kopmasi da,
+     kasitli 429 reddi de) ayni sekilde "yerelde arttir"a dusuyordu, yani
+     sunucunun kilidi istemci tarafinda bedavaya asilabiliyordu. -->
 <script>
+var KILIT_ANAHTARI = 'muharebeSonOy';
+var KILIT_SURESI_MS = 30 * 60 * 1000; // 30 dakika
+
 // baslangic oylari (backend yoksa)
 var oy = { A: 147, B: 140 };
+var geriSayimZamanlayici = null;
 
 function verileriGetir(){
   fetch('/api/muharebe')
@@ -193,16 +169,77 @@ function verileriGetir(){
     });
 }
 
+function kalanKilitSaniyesi(){
+  var son = Number(localStorage.getItem(KILIT_ANAHTARI) || 0);
+  var kalanMs = (son + KILIT_SURESI_MS) - Date.now();
+  return kalanMs > 0 ? Math.ceil(kalanMs / 1000) : 0;
+}
+
+function kilitBaslat(){
+  localStorage.setItem(KILIT_ANAHTARI, String(Date.now()));
+  kilitDurumunuUygula();
+}
+
+function kilitDurumunuUygula(){
+  var kalan = kalanKilitSaniyesi();
+  var btnA = document.querySelector('#tarafA .destek-btn');
+  var btnB = document.querySelector('#tarafB .destek-btn');
+  var kuralEl = document.getElementById('kuralMetni');
+
+  if(geriSayimZamanlayici){ clearInterval(geriSayimZamanlayici); geriSayimZamanlayici = null; }
+
+  if(kalan <= 0){
+    btnA.disabled = false; btnB.disabled = false;
+    kuralEl.textContent = '⏱ Her sancak neferi 30 dakikada bir oy kullanabilir.';
+    return;
+  }
+
+  btnA.disabled = true; btnB.disabled = true;
+
+  function goster(){
+    var s = kalanKilitSaniyesi();
+    if(s <= 0){ kilitDurumunuUygula(); return; }
+    var dk = Math.floor(s/60), sn = s%60;
+    kuralEl.textContent = '⏱ Tekrar oy kullanmak icin ' + dk + ' dk ' + (sn<10?'0':'') + sn + ' sn bekle.';
+  }
+  goster();
+  geriSayimZamanlayici = setInterval(goster, 1000);
+}
+
 function oyVer(taraf){
+  if(kalanKilitSaniyesi() > 0) return; // buton zaten disabled ama cift kontrol
+
   fetch('/api/oy', {
     method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({taraf: taraf})
   })
-  .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
-  .then(function(d){ oy = d; ekraniGuncelle(); })
-  .catch(function(){
+  .then(function(r){
+    if(r.status === 429){
+      return r.json().catch(function(){ return {}; }).then(function(d){
+        throw { kilitli:true, kalanSaniye: d.kalanSaniye };
+      });
+    }
+    if(!r.ok) throw new Error('sunucu hatasi');
+    return r.json();
+  })
+  .then(function(d){
+    oy = d;
+    kilitBaslat();
+    ekraniGuncelle();
+  })
+  .catch(function(hata){
+    if(hata && hata.kilitli){
+      // sunucu bilerek reddetti (429) -- yerelde OY ARTTIRMA, sadece kilidi goster
+      if(hata.kalanSaniye){
+        localStorage.setItem(KILIT_ANAHTARI, String(Date.now() - (KILIT_SURESI_MS - hata.kalanSaniye*1000)));
+      }
+      kilitDurumunuUygula();
+      return;
+    }
+    // gercekten offline (fetch atilamadi / ag hatasi) -- yerel moda dus
     oy[taraf]++;
     localStorage.setItem('muharebe', JSON.stringify(oy));
+    kilitBaslat();
     ekraniGuncelle();
   });
 }
@@ -232,6 +269,7 @@ function paylas(nere){
 }
 
 verileriGetir();
+kilitDurumunuUygula();
 </script>
 </body>
 </html>

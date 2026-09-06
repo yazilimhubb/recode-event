@@ -6,71 +6,11 @@
 <title>81 SANCAK — Divan-ı Şahane</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 
-<!-- ============================================================= -->
-<!--  RECODE NOTU: Bu CSS bilerek biraz dagitik ve tekrar eden     -->
-<!--  bir sekilde yazildi. Amac: katilimcilar duzenlesin,          -->
-<!--  degiskene alsin, temizlesin. Renkleri :root'a tasiyabilirsin -->
-<!-- ============================================================= -->
+<!-- RECODE: ortak CSS (reset, navbar, butonlar, canli/nokta rozeti) artik
+     styles.css'te. Burada sadece bu sayfaya ozgu stiller kaliyor. -->
 <style>
-:root{
-  --altin:#d4af37;
-  --altin-parlak:#f0d264;
-  --zemin:#0c0b09;
-  --kart:#161310;
-  --kenar:#3a3223;
-  --yazi:#e9e2d0;
-  --soluk:#9c9282;
-  --kirmizi:#e04848;
-  --yesil:#4ac06a;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:#0c0b09;
-  color:#e9e2d0;
-  font-family:'Inter',sans-serif;
-  min-height:100vh;
-  /* arka plan hafif glow */
-  background-image:radial-gradient(circle at 50% -10%, rgba(212,175,55,0.10), transparent 55%);
-}
-a{color:inherit;text-decoration:none}
-.cinzel{font-family:'Cinzel',serif}
-
-/* ---------- ust bar ---------- */
-.navbar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 26px;
-  border-bottom:1px solid #2a2418;
-  background:#0f0d0a;
-  position:sticky;top:0;z-index:50;
-}
-.logo{display:flex;align-items:center;gap:12px}
-.logo .kutu{
-  width:44px;height:44px;border-radius:10px;
-  background:linear-gradient(145deg,#d4af37,#8a6d1c);
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;
-  box-shadow:0 0 18px rgba(212,175,55,0.55);
-}
-.logo b{font-family:'Cinzel',serif;font-size:20px;letter-spacing:1px}
-.logo small{display:block;color:#9c9282;font-size:11px;letter-spacing:3px}
-.nav-links{display:flex;gap:22px;align-items:center}
-.nav-links a{color:#c9bfa8;font-size:14px;font-weight:500;transition:.2s}
-.nav-links a:hover{color:#f0d264;text-shadow:0 0 10px rgba(240,210,100,.6)}
-.btn{
-  font-family:'Inter',sans-serif;
-  cursor:pointer;border:none;border-radius:9px;
-  padding:10px 18px;font-size:14px;font-weight:600;transition:.2s;
-}
-.btn-altin{
-  background:linear-gradient(145deg,#e6c65c,#b8901f);
-  color:#1a1408;
-  box-shadow:0 0 16px rgba(212,175,55,.4);
-}
-.btn-altin:hover{box-shadow:0 0 26px rgba(212,175,55,.75);transform:translateY(-1px)}
-.btn-hayalet{background:transparent;color:#e9e2d0;border:1px solid #3a3223}
-.btn-hayalet:hover{border-color:#d4af37;color:#f0d264}
-
 /* ---------- duyuru serit ---------- */
 .serit{
   display:flex;align-items:center;justify-content:space-between;
@@ -78,14 +18,6 @@ a{color:inherit;text-decoration:none}
   background:#12100c;border-bottom:1px solid #221d13;
   font-size:13px;flex-wrap:wrap;
 }
-.canli{
-  display:inline-flex;align-items:center;gap:6px;
-  background:#3a1414;color:#ff7676;
-  padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;
-  letter-spacing:1px;
-}
-.nokta{width:7px;height:7px;border-radius:50%;background:#ff5c5c;box-shadow:0 0 8px #ff5c5c;animation:yanip 1.2s infinite}
-@keyframes yanip{50%{opacity:.3}}
 
 /* ---------- istatistik satiri ---------- */
 .stats{
@@ -141,11 +73,6 @@ a{color:inherit;text-decoration:none}
   background:#241d10;color:#e6c65c;border:1px solid #4a3d1d;
   padding:4px 9px;border-radius:6px;
 }
-.biat-say{
-  display:inline-flex;align-items:center;gap:5px;
-  background:#2a1010;color:#ff8a5c;
-  padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;
-}
 .fiyat{background:#0a0a0a;color:#c9bfa8;padding:4px 10px;border-radius:6px;font-size:12px;border:1px solid #2a2418}
 
 .kart-icerik{display:flex;gap:14px;align-items:flex-start}
@@ -173,12 +100,6 @@ a{color:inherit;text-decoration:none}
   background:#141109;border:1px dashed #3a3223;
 }
 .ucretsiz{background:#10240f;color:#7fdc8a;border:1px solid #234a23;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700}
-
-footer{
-  border-top:1px solid #221d13;text-align:center;
-  padding:24px;color:#6b5f45;font-size:13px;
-}
-footer b{color:#9c9282}
 </style>
 </head>
 <body>
@@ -244,6 +165,7 @@ footer b{color:#9c9282}
 <!--  * Kod bilerek sade/dagitik. Fonksiyonlari boyutle, hata      -->
 <!--    yakalamayi guclendir, kodu modullestir. Senin isin :)      -->
 <!-- ============================================================= -->
+<script src="assets/js/util.js"></script>
 <script>
 // varsayilan sancak verisi (backend yoksa bunlar kullanilir)
 var VARSAYILAN = [
@@ -273,25 +195,37 @@ function ciz(liste){
   v.innerHTML = '';
 
   liste.forEach(function(s, i){
+    // RECODE (guvenlik): tum kullanici-kontrollu alanlar innerHTML'e
+    // yazilmadan once escapeHtml() ile kacislaniyor -- eskiden ferman
+    // formundan "sancak adi" / "hukumdar adi" / "slogan" alanlarina
+    // <img src=x onerror=...> gibi bir deger girip bu vitrini goren
+    // herkeste script calistirmak mumkundu.
+    var sehir = escapeHtml(s.sehir);
+    var tur = escapeHtml(s.tur);
+    var ad = escapeHtml(s.ad);
+    var slogan = escapeHtml(s.slogan);
+    var hukumdar = escapeHtml(s.hukumdar);
+    var ikon = escapeHtml(s.ikon);
+
     var kart = document.createElement('div');
     kart.className = 'sancak-kart' + (i===0 ? ' zirve' : '');
     kart.innerHTML =
       '<div class="kart-ust">' +
-        (i===0 ? '<span class="etiket">♛ '+(i+1)+'. SIRA · EN ÇOK BİAT</span>' : '<span class="etiket">'+s.sehir.toUpperCase()+'</span>') +
-        '<span class="biat-say">🔥 '+s.biat+' BİAT</span>' +
-        '<span class="fiyat">$'+s.fiyat+'</span>' +
+        (i===0 ? '<span class="etiket">♛ '+(i+1)+'. SIRA · EN ÇOK BİAT</span>' : '<span class="etiket">'+sehir.toUpperCase()+'</span>') +
+        '<span class="biat-say">🔥 '+Number(s.biat||0)+' BİAT</span>' +
+        '<span class="fiyat">$'+Number(s.fiyat||0)+'</span>' +
       '</div>' +
       '<div class="kart-icerik">' +
-        '<div class="avatar">'+s.ikon+'</div>' +
+        '<div class="avatar">'+ikon+'</div>' +
         '<div>' +
-          '<div class="sancak-no">#'+s.id+' '+s.sehir+' · '+s.tur+'</div>' +
-          '<div class="sancak-ad">'+s.ad+'</div>' +
-          '<div class="slogan">"'+s.slogan+'"</div>' +
+          '<div class="sancak-no">#'+Number(s.id||0)+' '+sehir+' · '+tur+'</div>' +
+          '<div class="sancak-ad">'+ad+'</div>' +
+          '<div class="slogan">"'+slogan+'"</div>' +
         '</div>' +
       '</div>' +
       '<div class="kart-alt">' +
-        '<div class="hukumdar">☾ Hükümdar: <span>'+s.hukumdar+'</span></div>' +
-        '<button class="btn btn-altin" style="padding:7px 14px;font-size:13px" onclick="biatVer('+s.id+')">🔥 Biat Et</button>' +
+        '<div class="hukumdar">☾ Hükümdar: <span>'+hukumdar+'</span></div>' +
+        '<button class="btn btn-altin" style="padding:7px 14px;font-size:13px" onclick="biatVer('+Number(s.id||0)+')">🔥 Biat Et</button>' +
       '</div>';
     v.appendChild(kart);
   });
@@ -320,10 +254,18 @@ function biatVer(id){
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({id:id})
   })
-  .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+  .then(function(r){
+    // sunucu bilerek 429 ile reddettiyse (kisa sureli biat kilidi) bunu
+    // gercek bir ag hatasindan ayirt et -- yoksa asagidaki catch
+    // sessizce yerelde arttirir ve sunucu kilidi bosa gitmis olur.
+    if(r.status === 429) throw { kilitli:true };
+    if(!r.ok) throw new Error('sunucu hatasi');
+    return r.json();
+  })
   .then(function(){ yenile(); })
-  .catch(function(){
-    // offline biat
+  .catch(function(hata){
+    if(hata && hata.kilitli) return; // kisa sureli kilit -- sessizce yoksay
+    // gercekten offline: yerel modda arttir
     var liste = JSON.parse(localStorage.getItem('sancaklar') || 'null') || VARSAYILAN;
     for(var i=0;i<liste.length;i++){ if(liste[i].id===id){ liste[i].biat++; } }
     localStorage.setItem('sancaklar', JSON.stringify(liste));

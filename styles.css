@@ -1,0 +1,100 @@
+/* =====================================================================
+   81 SANCAK — ortak stil dosyasi (RECODE)
+   Bütün sayfalarda (index, ferman, meyhane, muharebe, sehirler) birebir
+   tekrar eden CSS buraya tasindi. Sayfaya ozgu stiller kendi <style>
+   bloklarinda kaliyor.
+   ===================================================================== */
+
+:root{
+  --altin:#d4af37;
+  --altin-parlak:#f0d264;
+  --zemin:#0c0b09;
+  --kart:#161310;
+  --kenar:#3a3223;
+  --yazi:#e9e2d0;
+  --soluk:#9c9282;
+  --kirmizi:#e04848;
+  --yesil:#4ac06a;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--zemin);
+  color:var(--yazi);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  background-image:radial-gradient(circle at 50% -10%, rgba(212,175,55,0.10), transparent 55%);
+}
+a{color:inherit;text-decoration:none}
+.cinzel{font-family:'Cinzel',serif}
+
+/* ---------- ust bar (navbar) ---------- */
+.navbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 26px;
+  border-bottom:1px solid #2a2418;
+  background:#0f0d0a;
+  position:sticky;top:0;z-index:50;
+  flex-wrap:wrap;gap:10px;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logo .kutu{
+  width:44px;height:44px;border-radius:10px;
+  background:linear-gradient(145deg,#d4af37,#8a6d1c);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  box-shadow:0 0 18px rgba(212,175,55,0.55);
+}
+.logo b{font-family:'Cinzel',serif;font-size:20px;letter-spacing:1px}
+.logo small{display:block;color:var(--soluk);font-size:11px;letter-spacing:3px}
+.nav-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:#c9bfa8;font-size:14px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--altin-parlak);text-shadow:0 0 10px rgba(240,210,100,.6)}
+.nav-links a.aktif{color:var(--altin-parlak)}
+
+/* ---------- butonlar ---------- */
+.btn{
+  font-family:'Inter',sans-serif;
+  cursor:pointer;border:none;border-radius:9px;
+  padding:10px 18px;font-size:14px;font-weight:600;transition:.2s;
+}
+.btn-altin{
+  background:linear-gradient(145deg,#e6c65c,#b8901f);
+  color:#1a1408;
+  box-shadow:0 0 16px rgba(212,175,55,.4);
+}
+.btn-altin:hover{box-shadow:0 0 26px rgba(212,175,55,.75);transform:translateY(-1px)}
+.btn-hayalet{background:transparent;color:var(--yazi);border:1px solid var(--kenar)}
+.btn-hayalet:hover{border-color:var(--altin);color:var(--altin-parlak)}
+.btn-yesil{background:#128a4a;color:#fff}
+.btn-yesil:hover{box-shadow:0 0 18px rgba(18,138,74,.6)}
+
+/* ---------- canli/nokta rozeti ---------- */
+.canli{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#3a1414;color:#ff7676;
+  padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;
+  letter-spacing:1px;
+}
+.nokta{width:7px;height:7px;border-radius:50%;background:#ff5c5c;box-shadow:0 0 8px #ff5c5c;animation:yanip 1.2s infinite}
+@keyframes yanip{50%{opacity:.3}}
+
+/* ---------- plaka rozeti (muharebe + sehirler) ---------- */
+.plaka{
+  background:#241d10;color:#e6c65c;border:1px solid #4a3d1d;border-radius:8px;
+  padding:6px 10px;font-family:'Cinzel',serif;font-weight:700;text-align:center;line-height:1;
+}
+.plaka small{display:block;font-size:9px;letter-spacing:1px;color:#9c8b5f}
+
+/* ---------- biat rozeti (index + sehirler) ---------- */
+.biat-say{
+  display:inline-flex;align-items:center;gap:5px;
+  background:#2a1010;color:#ff8a5c;
+  padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;
+}
+
+footer{
+  border-top:1px solid #221d13;text-align:center;
+  padding:24px;color:#6b5f45;font-size:13px;
+}
+footer b{color:var(--soluk)}
