@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meyhane Kur — 81 SANCAK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- RECODE NOTU: Evet, CSS burada da tekrar ediyor. Ortak dosyaya cikar! -->
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0c0b09;color:#e9e2d0;font-family:'Inter',sans-serif;min-height:100vh;
+  background-image:radial-gradient(circle at 50% -10%, rgba(212,175,55,0.10), transparent 55%)}
+a{color:inherit;text-decoration:none}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;
+  border-bottom:1px solid #2a2418;background:#0f0d0a;position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:10px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo .kutu{width:44px;height:44px;border-radius:10px;background:linear-gradient(145deg,#d4af37,#8a6d1c);
+  display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 18px rgba(212,175,55,0.55)}
+.logo b{font-family:'Cinzel',serif;font-size:20px;letter-spacing:1px}
+.logo small{display:block;color:#9c9282;font-size:11px;letter-spacing:3px}
+.nav-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:#c9bfa8;font-size:14px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:#f0d264;text-shadow:0 0 10px rgba(240,210,100,.6)}
+.nav-links a.aktif{color:#f0d264}
+.btn{cursor:pointer;border:none;border-radius:9px;padding:10px 18px;font-size:14px;font-weight:600;
+  transition:.2s;font-family:'Inter',sans-serif}
+.btn-altin{background:linear-gradient(145deg,#e6c65c,#b8901f);color:#1a1408;box-shadow:0 0 16px rgba(212,175,55,.4)}
+.btn-altin:hover{box-shadow:0 0 26px rgba(212,175,55,.75);transform:translateY(-1px)}
+.btn-hayalet{background:transparent;color:#e9e2d0;border:1px solid #3a3223}
+.btn-hayalet:hover{border-color:#d4af37;color:#f0d264}
+
+.duzen{max-width:1180px;margin:34px auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:860px){.duzen{grid-template-columns:1fr}}
+
+.kart{background:#111;border:1px solid #2a2418;border-radius:20px;padding:26px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.kart h1{font-family:'Cinzel',serif;font-size:26px;display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.kart .ikon{width:44px;height:44px;border-radius:10px;background:linear-gradient(145deg,#d4af37,#8a6d1c);
+  display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 18px rgba(212,175,55,.5)}
+.kart p.alt{color:#9c9282;font-size:14px;margin-bottom:20px}
+label{display:block;font-size:13px;color:#c9bfa8;margin:14px 0 7px;font-weight:600}
+input,select{width:100%;padding:11px 14px;border-radius:10px;border:1px solid #3a3223;
+  background:#0a0908;color:#e9e2d0;font-family:'Inter',sans-serif;font-size:14px;transition:.2s}
+input:focus,select:focus{outline:none;border-color:#d4af37;box-shadow:0 0 12px rgba(212,175,55,.25)}
+.ikili{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* secim rozetleri (meze/icki) */
+.secimler{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.sec{cursor:pointer;padding:8px 13px;border-radius:20px;font-size:13px;border:1px solid #2a2418;
+  background:#161310;color:#c9bfa8;transition:.2s;user-select:none}
+.sec:hover{border-color:#d4af37}
+.sec.aktif{background:linear-gradient(145deg,#e6c65c,#b8901f);color:#1a1408;border-color:#d4af37}
+
+/* onizleme (canli) */
+.onizleme{background:linear-gradient(160deg,#1a1610,#0c0b09);border:1px solid #2f2819;border-radius:18px;
+  padding:26px;position:sticky;top:90px}
+.oz-tabela{text-align:center;padding:22px;border:2px dashed #4a3d1d;border-radius:14px;margin-bottom:18px;
+  background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.12),transparent 70%)}
+.oz-tabela .amblem{font-size:44px}
+.oz-tabela h2{font-family:'Cinzel',serif;font-size:28px;margin:8px 0 4px;color:#f0d264;
+  text-shadow:0 0 18px rgba(240,210,100,.5)}
+.oz-tabela .konum{color:#9c9282;font-size:14px}
+.oz-satir{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #221d13;font-size:14px}
+.oz-satir .l{color:#9c9282}
+.oz-satir .r{color:#e9e2d0;font-weight:600;text-align:right;max-width:60%}
+.oz-mezeler{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.oz-mezeler span{background:#241d10;color:#e6c65c;border:1px solid #4a3d1d;padding:3px 8px;border-radius:12px;font-size:11px}
+
+/* kayitli meyhaneler listesi */
+.liste-bolum{max-width:1180px;margin:0 auto 60px;padding:0 20px}
+.liste-baslik{font-family:'Cinzel',serif;font-size:22px;margin:10px 0 16px;display:flex;align-items:center;gap:10px}
+.mey-izgara{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.mey-kart{background:linear-gradient(160deg,#161310,#0f0d0a);border:1px solid #2f2819;border-radius:14px;padding:18px;transition:.2s}
+.mey-kart:hover{border-color:#d4af37;box-shadow:0 0 20px rgba(212,175,55,.15)}
+.mey-kart .m-amblem{font-size:30px}
+.mey-kart h3{font-family:'Cinzel',serif;font-size:19px;color:#f0d264;margin:6px 0 2px}
+.mey-kart .m-konum{color:#9c9282;font-size:13px;margin-bottom:10px}
+.mey-kart .m-mezeler{display:flex;gap:5px;flex-wrap:wrap}
+.mey-kart .m-mezeler span{background:#241d10;color:#e6c65c;border:1px solid #4a3d1d;padding:2px 7px;border-radius:10px;font-size:11px}
+.mey-sil{margin-top:12px;color:#ff7676;font-size:12px;cursor:pointer;background:none;border:none}
+.mey-sil:hover{text-decoration:underline}
+.bos-liste{color:#9c9282;padding:30px;text-align:center;grid-column:1/-1}
+footer{border-top:1px solid #221d13;text-align:center;padding:24px;color:#6b5f45;font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="index.html" class="logo">
+    <div class="kutu">🍷</div>
+    <div><b>81 SANCAK</b><small>KADİM MEYHANELER</small></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Divan</a>
+    <a href="muharebe.html">Meydan Muharebesi</a>
+    <a href="sehirler.html">81 Sancak</a>
+    <a href="meyhane.html" class="aktif">Meyhane Kur</a>
+    <a href="ferman.html"><button class="btn btn-altin">⚑ Ferman Al</button></a>
+  </div>
+</div>
+
+<div class="duzen">
+  <!-- SOL: FORM -->
+  <div class="kart">
+    <h1><span class="ikon">🍷</span>Kendi Meyhaneni Kur</h1>
+    <p class="alt">Sancağını seç, mezeni diz, havayı ayarla. Meyhanen kadim divana kaydolsun.</p>
+
+    <label for="mad">Meyhane Adı</label>
+    <input id="mad" type="text" placeholder="Örn: Kültigi'nin Ocağı" oninput="onizle()">
+
+    <div class="ikili">
+      <div>
+        <label for="il">İl (Sancak)</label>
+        <select id="il" onchange="ilceleriDoldur(); onizle()"></select>
+      </div>
+      <div>
+        <label for="ilce">İlçe</label>
+        <select id="ilce" onchange="onizle()"></select>
+      </div>
+    </div>
+
+    <label>Amblem Seç</label>
+    <div class="secimler" id="amblemler"></div>
+
+    <label>Mezeler (birden çok seçebilirsin)</label>
+    <div class="secimler" id="mezeler"></div>
+
+    <label>İçki / İkram</label>
+    <div class="secimler" id="ickiler"></div>
+
+    <label>Meyhanenin Havası</label>
+    <select id="hava" onchange="onizle()">
+      <option>🎻 Fasıl gecesi</option>
+      <option>🌙 Sakin & loş</option>
+      <option>🔥 Coşkulu & kalabalık</option>
+      <option>🎶 Türkü akşamı</option>
+      <option>⚓ Balıkçı esintili</option>
+    </select>
+
+    <button class="btn btn-altin" style="width:100%;margin-top:22px;padding:14px;font-size:16px" onclick="meyhaneKur()">
+      🍷 Meyhaneyi Divana Kaydet
+    </button>
+  </div>
+
+  <!-- SAG: CANLI ONIZLEME -->
+  <div class="onizleme">
+    <div class="oz-tabela">
+      <div class="amblem" id="ozAmblem">🍷</div>
+      <h2 id="ozAd">Meyhanenin Adı</h2>
+      <div class="konum" id="ozKonum">— · —</div>
+    </div>
+    <div class="oz-satir"><span class="l">Amblem</span><span class="r" id="ozAmblem2">🍷</span></div>
+    <div class="oz-satir"><span class="l">Hava</span><span class="r" id="ozHava">🎻 Fasıl gecesi</span></div>
+    <div class="oz-satir"><span class="l">İçki / İkram</span><span class="r" id="ozIcki">—</span></div>
+    <div class="oz-satir" style="align-items:flex-start"><span class="l">Mezeler</span><span class="r"><div class="oz-mezeler" id="ozMezeler">—</div></span></div>
+  </div>
+</div>
+
+<!-- KAYITLI MEYHANELER -->
+<div class="liste-bolum">
+  <div class="liste-baslik">🏮 Kadim Meyhaneler Divanı</div>
+  <div class="mey-izgara" id="meyListe"></div>
+</div>
+
+<footer><b>81 SANCAK</b> — Meyhaneler <code style="color:#e6c65c">/api/meyhane</code>'ye gider, kapalıysa localStorage'da tutulur.</footer>
+
+<script src="iller.js"></script>
+<script>
+// ---- secenek verileri (RECODE: bunlari backend'den cekebilirsin) ----
+var AMBLEMLER = ["🍷","🍇","🎻","🐟","🌙","🔥","⚓","🍋","🫒","☕"];
+var MEZELER = ["Humus","Haydari","Şakşuka","Fava","Atom","Midye Dolma","Beyaz Peynir","Kavun","Ciğer","Patlıcan Ezme","Deniz Börülcesi","Acılı Ezme"];
+var ICKILER = ["Rakı","Şarap","Şalgam","Ayran","Bira","Boza"];
+
+// secili durumlar
+var secili = { amblem:"🍷", mezeler:[], icki:"" };
+
+// il selectini doldur
+function illeriDoldur(){
+  var s = document.getElementById('il');
+  ILLER.forEach(function(il){
+    var o = document.createElement('option');
+    o.value = il.ad; o.textContent = il.plaka + ' · ' + il.ad;
+    s.appendChild(o);
+  });
+  s.value = "İstanbul";
+}
+function ilceleriDoldur(){
+  var ilAd = document.getElementById('il').value;
+  var il = ILLER.find(function(x){ return x.ad === ilAd; });
+  var s = document.getElementById('ilce');
+  s.innerHTML = '';
+  if(il){
+    il.ilceler.forEach(function(ilce){
+      var o = document.createElement('option');
+      o.value = ilce; o.textContent = ilce; s.appendChild(o);
+    });
+  }
+}
+
+// amblem rozetleri
+function amblemleriKur(){
+  var c = document.getElementById('amblemler'); c.innerHTML='';
+  AMBLEMLER.forEach(function(a){
+    var d = document.createElement('div');
+    d.className='sec'+(a===secili.amblem?' aktif':'');
+    d.textContent=a;
+    d.onclick=function(){ secili.amblem=a; amblemleriKur(); onizle(); };
+    c.appendChild(d);
+  });
+}
+// meze rozetleri (coklu secim)
+function mezeleriKur(){
+  var c = document.getElementById('mezeler'); c.innerHTML='';
+  MEZELER.forEach(function(m){
+    var aktif = secili.mezeler.indexOf(m) !== -1;
+    var d = document.createElement('div');
+    d.className='sec'+(aktif?' aktif':'');
+    d.textContent=m;
+    d.onclick=function(){
+      var i = secili.mezeler.indexOf(m);
+      if(i===-1) secili.mezeler.push(m); else secili.mezeler.splice(i,1);
+      mezeleriKur(); onizle();
+    };
+    c.appendChild(d);
+  });
+}
+// icki rozetleri (tekli secim)
+function ickileriKur(){
+  var c = document.getElementById('ickiler'); c.innerHTML='';
+  ICKILER.forEach(function(ic){
+    var d = document.createElement('div');
+    d.className='sec'+(ic===secili.icki?' aktif':'');
+    d.textContent=ic;
+    d.onclick=function(){ secili.icki = (secili.icki===ic ? "" : ic); ickileriKur(); onizle(); };
+    c.appendChild(d);
+  });
+}
+
+// canli onizleme
+function onizle(){
+  document.getElementById('ozAd').textContent = document.getElementById('mad').value || "Meyhanenin Adı";
+  var il = document.getElementById('il').value;
+  var ilce = document.getElementById('ilce').value;
+  document.getElementById('ozKonum').textContent = il + ' · ' + ilce;
+  document.getElementById('ozAmblem').textContent = secili.amblem;
+  document.getElementById('ozAmblem2').textContent = secili.amblem;
+  document.getElementById('ozHava').textContent = document.getElementById('hava').value;
+  document.getElementById('ozIcki').textContent = secili.icki || "—";
+  var mez = document.getElementById('ozMezeler');
+  if(secili.mezeler.length){
+    mez.innerHTML = secili.mezeler.map(function(m){ return '<span>'+m+'</span>'; }).join('');
+  } else { mez.textContent = "—"; }
+}
+
+// ---- kayit islemleri ----
+function meyhaneleriGetir(){
+  var k = localStorage.getItem('meyhaneler');
+  return k ? JSON.parse(k) : [];
+}
+function meyhaneleriKaydet(l){ localStorage.setItem('meyhaneler', JSON.stringify(l)); }
+
+function meyhaneKur(){
+  var ad = document.getElementById('mad').value.trim();
+  // RECODE NOTU: dogrulama cok zayif. Sadece ad kontrol ediliyor.
+  if(!ad){ alert('Meyhanene bir isim ver bey!'); return; }
+
+  var yeni = {
+    id: Date.now(),
+    ad: ad,
+    il: document.getElementById('il').value,
+    ilce: document.getElementById('ilce').value,
+    amblem: secili.amblem,
+    mezeler: secili.mezeler.slice(),
+    icki: secili.icki || "—",
+    hava: document.getElementById('hava').value
+  };
+
+  // once backend'e gonder, olmazsa localStorage
+  fetch('/api/meyhane', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(yeni)
+  })
+  .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+  .then(function(){ listeGetir(); temizle(); })
+  .catch(function(){
+    var l = meyhaneleriGetir(); l.push(yeni); meyhaneleriKaydet(l);
+    listeGetir(); temizle();
+  });
+}
+
+function temizle(){
+  document.getElementById('mad').value='';
+  secili = { amblem:"🍷", mezeler:[], icki:"" };
+  amblemleriKur(); mezeleriKur(); ickileriKur(); onizle();
+  alert('Meyhanen divana kaydedildi! 🍷 Aşağıdan görebilirsin.');
+}
+
+function meyhaneSil(id){
+  var l = meyhaneleriGetir().filter(function(m){ return m.id !== id; });
+  meyhaneleriKaydet(l);
+  listeGetir();
+}
+
+// kayitli meyhaneleri listele
+function listeGetir(){
+  fetch('/api/meyhane')
+    .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+    .then(function(d){ listeCiz(d); })
+    .catch(function(){ listeCiz(meyhaneleriGetir()); });
+}
+function listeCiz(liste){
+  var g = document.getElementById('meyListe');
+  g.innerHTML='';
+  if(!liste.length){
+    g.innerHTML = '<div class="bos-liste">Henüz meyhane kurulmadı. İlk meyhaneyi sen aç! 🍷</div>';
+    return;
+  }
+  liste.forEach(function(m){
+    var k = document.createElement('div');
+    k.className='mey-kart';
+    var mezeHtml = (m.mezeler||[]).map(function(x){ return '<span>'+x+'</span>'; }).join('');
+    k.innerHTML =
+      '<div class="m-amblem">'+m.amblem+'</div>' +
+      '<h3>'+m.ad+'</h3>' +
+      '<div class="m-konum">📍 '+m.il+' · '+m.ilce+' &nbsp;|&nbsp; '+m.hava+'</div>' +
+      '<div class="m-konum" style="color:#e6c65c">🥃 '+m.icki+'</div>' +
+      '<div class="m-mezeler">'+ (mezeHtml || '<span>meze yok</span>') +'</div>' +
+      '<button class="mey-sil" onclick="meyhaneSil('+m.id+')">✕ Meyhaneyi kapat</button>';
+    g.appendChild(k);
+  });
+}
+
+// baslat
+illeriDoldur();
+ilceleriDoldur();
+amblemleriKur();
+mezeleriKur();
+ickileriKur();
+onizle();
+listeGetir();
+</script>
+</body>
+</html>

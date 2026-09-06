@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferman Al — 81 SANCAK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- RECODE NOTU: yine ayni CSS tekrar ediyor. Ortak dosyaya cikar! -->
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0c0b09;color:#e9e2d0;font-family:'Inter',sans-serif;min-height:100vh;
+  background-image:radial-gradient(circle at 50% -10%, rgba(212,175,55,0.10), transparent 55%)}
+a{color:inherit;text-decoration:none}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;
+  border-bottom:1px solid #2a2418;background:#0f0d0a;position:sticky;top:0;z-index:50}
+.logo{display:flex;align-items:center;gap:12px}
+.logo .kutu{width:44px;height:44px;border-radius:10px;background:linear-gradient(145deg,#d4af37,#8a6d1c);
+  display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 18px rgba(212,175,55,0.55)}
+.logo b{font-family:'Cinzel',serif;font-size:20px;letter-spacing:1px}
+.logo small{display:block;color:#9c9282;font-size:11px;letter-spacing:3px}
+.nav-links{display:flex;gap:22px;align-items:center}
+.nav-links a{color:#c9bfa8;font-size:14px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:#f0d264;text-shadow:0 0 10px rgba(240,210,100,.6)}
+.btn{cursor:pointer;border:none;border-radius:9px;padding:10px 18px;font-size:14px;font-weight:600;
+  transition:.2s;font-family:'Inter',sans-serif}
+.btn-altin{background:linear-gradient(145deg,#e6c65c,#b8901f);color:#1a1408;box-shadow:0 0 16px rgba(212,175,55,.4)}
+.btn-altin:hover{box-shadow:0 0 26px rgba(212,175,55,.75);transform:translateY(-1px)}
+.btn-hayalet{background:transparent;color:#e9e2d0;border:1px solid #3a3223}
+.btn-hayalet:hover{border-color:#d4af37;color:#f0d264}
+
+.kap{max-width:640px;margin:40px auto;padding:0 20px}
+.form-kart{background:#111;border:1px solid #2a2418;border-radius:20px;padding:30px;
+  box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.form-kart h1{font-family:'Cinzel',serif;font-size:28px;display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.form-kart .ikon{width:44px;height:44px;border-radius:10px;background:linear-gradient(145deg,#d4af37,#8a6d1c);
+  display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 18px rgba(212,175,55,.5)}
+.form-kart p.alt{color:#9c9282;font-size:14px;margin-bottom:24px}
+label{display:block;font-size:13px;color:#c9bfa8;margin:16px 0 7px;font-weight:600}
+input,select,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid #3a3223;
+  background:#0a0908;color:#e9e2d0;font-family:'Inter',sans-serif;font-size:14px;transition:.2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#d4af37;box-shadow:0 0 12px rgba(212,175,55,.25)}
+textarea{resize:vertical;min-height:80px}
+.ucret-kutu{display:flex;align-items:center;justify-content:space-between;margin-top:22px;
+  padding:14px 16px;background:#10240f;border:1px solid #234a23;border-radius:12px}
+.ucret-kutu .l{color:#7fdc8a;font-size:14px}
+.ucret-kutu .p{font-family:'Cinzel',serif;font-size:22px;color:#7fdc8a}
+.gonder{width:100%;margin-top:20px;padding:14px;font-size:16px}
+.mesaj{margin-top:16px;padding:14px;border-radius:10px;display:none;font-size:14px}
+.mesaj.basari{display:block;background:#10240f;border:1px solid #234a23;color:#7fdc8a}
+footer{border-top:1px solid #221d13;text-align:center;padding:24px;color:#6b5f45;font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="index.html" class="logo">
+    <div class="kutu">⚑</div>
+    <div><b>81 SANCAK</b><small>FERMAN DAİRESİ</small></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Divan</a>
+    <a href="muharebe.html">Meydan Muharebesi</a>
+    <a href="sehirler.html">81 Sancak</a>
+    <a href="meyhane.html">Meyhane Kur</a>
+    <a href="ferman.html"><button class="btn btn-altin">⚑ Ferman Al</button></a>
+  </div>
+</div>
+
+<div class="kap">
+  <div class="form-kart">
+    <h1><span class="ikon">⚑</span>Ferman Al & Derebeyi Ol</h1>
+    <p class="alt">Bir sancağı mühürle, sloganını yaz, vitrinde taht kur. İlk ferman <b style="color:#7fdc8a">tamamen ücretsizdir ($0)</b>.</p>
+
+    <!-- RECODE NOTU: bu form dogrulama neredeyse yok. Bos gecmeyi, uzunlugu vs. kontrol et! -->
+    <form id="fermanForm" onsubmit="fermanAs(event)">
+      <label for="sehir">Sancağın (81 ilden biri)</label>
+      <select id="sehir">
+        <option>İstanbul</option><option>Ankara</option><option>İzmir</option>
+        <option>Adana</option><option>Mersin</option><option>Bursa</option>
+        <option>Antalya</option><option>Konya</option><option>Gaziantep</option>
+        <option>Edirne</option><option>Diyarbakır</option><option>Trabzon</option>
+      </select>
+
+      <label for="ad">Sancak / Ferman Adı</label>
+      <input id="ad" type="text" placeholder="Örn: İstanbulun Sefiri" />
+
+      <label for="hukumdar">Hükümdar Adın</label>
+      <input id="hukumdar" type="text" placeholder="Örn: Kültigi Kaan" />
+
+      <label for="slogan">Kadim Sloganın</label>
+      <textarea id="slogan" placeholder="Örn: Biat edene özgürlük"></textarea>
+
+      <div class="ucret-kutu">
+        <span class="l">✦ İlk ferman ücreti</span>
+        <span class="p">$0</span>
+      </div>
+
+      <button type="submit" class="btn btn-altin gonder">⚔ Fermanı Mühürle & Divana Ekle</button>
+    </form>
+
+    <div class="mesaj" id="mesaj"></div>
+  </div>
+</div>
+
+<footer><b>81 SANCAK</b> — Ferman Dairesi · Yeni fermanlar <code style="color:#e6c65c">/api/sancaklar</code>'a POST edilir.</footer>
+
+<script>
+// yeni ferman/sancak ekle
+function fermanAs(e){
+  e.preventDefault();
+  var yeni = {
+    id: Math.floor(Math.random()*81)+1,
+    sehir: document.getElementById('sehir').value,
+    ad: document.getElementById('ad').value || 'İsimsiz Sancak',
+    tur: 'Yeni Ferman',
+    slogan: document.getElementById('slogan').value || 'Slogan girilmedi',
+    biat: 0,
+    fiyat: 0,
+    hukumdar: document.getElementById('hukumdar').value || 'Anonim Bey',
+    ikon: '⚑',
+    zirve: false
+  };
+
+  fetch('/api/sancaklar', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(yeni)
+  })
+  .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+  .then(function(){ basariGoster(yeni); })
+  .catch(function(){
+    // offline: index sayfasinin okudugu ayni anahtara ekle
+    var liste = JSON.parse(localStorage.getItem('sancaklar') || 'null');
+    if(!liste){
+      liste = [
+        {id:34, sehir:"İstanbul", ad:"İstanbulun Sefiri", tur:"Hünkâr Sancağı", slogan:"Biat edene özgürlük", biat:11, fiyat:0, hukumdar:"Kültigi Kaan", ikon:"🕌", zirve:true},
+        {id:22, sehir:"Edirne", ad:"Edirne Sancağı", tur:"Youtube Kanalım", slogan:"Siz olun abiler konuşurken araya girmesin.", biat:1, fiyat:0, hukumdar:"Akazinyo", ikon:"▶", zirve:false}
+      ];
+    }
+    liste.push(yeni);
+    localStorage.setItem('sancaklar', JSON.stringify(liste));
+    basariGoster(yeni);
+  });
+}
+
+function basariGoster(y){
+  var m = document.getElementById('mesaj');
+  m.className = 'mesaj basari';
+  m.innerHTML = '✔ <b>' + y.ad + '</b> fermanı mühürlendi! Divan vitrinine eklendi. ' +
+                '<a href="index.html" style="color:#f0d264;text-decoration:underline">Divana git →</a>';
+  document.getElementById('fermanForm').reset();
+}
+</script>
+</body>
+</html>
