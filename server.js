@@ -1,89 +1,63 @@
 // =====================================================================
 //  81 SANCAK  —  BACKEND  (Recode Etkinligi surumu)
 // ---------------------------------------------------------------------
-//  DIKKAT: Bu backend BILEREK basit ve biraz "kotu" yazildi.
-//  Amac: recode etkinliginde katilimcilar gelistirsin.
+//  RECODE: asagidaki maddeler artik ele alindi --
+//   [x] Veri artik data/store.json'a yaziliyor (bkz. lib/store.js),
+//       sunucu yeniden baslasa da ucmuyor.
+//   [x] POST rotalarinda gercek girdi dogrulamasi var (bkz. routes/*.js).
+//   [x] /api/oy ve /api/biat icin IP+anahtar bazli cooldown var
+//       (bkz. lib/rateLimit.js) -- 429 + kalanSaniye donuyor.
+//   [x] Rotalar dosya basina bolundu (routes/sancaklar.js,
+//       routes/muharebe.js, routes/meyhane.js, routes/il-biat.js).
+//   [x] Merkezi hata yakalama + JSON gövde parse hatalarinda 400.
 //
-//  Bilinen eksikler / RECODE fikirleri:
-//   - Veri sadece bellekte tutuluyor, sunucu kapaninca ucuyor
-//     -> JSON dosyasina veya gercek veritabanina yaz.
-//   - Hicbir girdi dogrulamasi yok -> input validation ekle.
-//   - Oy icin sure/IP kilidi yok -> spam engeli ekle.
-//   - Tek dosyada her sey -> route'lari ayir, temizle.
-//   - Hata yonetimi zayif -> try/catch ve anlamli hata mesajlari.
+//  Kalan fikirler (bilerek disaride birakildi, kapsam disi):
+//   - Gercek bir veritabani (SQLite/Postgres) -- JSON dosyasi bu
+//     olcekte yeterli ama buyurse ilk tasinacak yer burasi.
+//   - Gercek kullanici girisi (index.html'deki "Giris" butonu hala
+//     placeholder) -- ayri bir ozellik, bu recode'un kapsami degil.
 // =====================================================================
+'use strict';
 
 var express = require('express');
-var path = require('path');
-var app = express();
-var PORT = 3000;
 
-app.use(express.json());
+var sancaklarRouter = require('./routes/sancaklar');
+var muharebeRouter = require('./routes/muharebe');
+var meyhaneRouter = require('./routes/meyhane');
+var ilBiatRouter = require('./routes/ilBiat');
+
+var app = express();
+var PORT = process.env.PORT || 3000;
+
+// proxy arkasinda dogru istemci IP'sini almak icin (rate limit bunu kullanir)
+app.set('trust proxy', true);
+
+app.use(express.json({ limit: '64kb' }));
 app.use(express.static(__dirname)); // html/css/js dosyalarini servis et
 
-// -------- bellek "veritabani" (kotu ama calisir) --------
-var sancaklar = [
-  {id:34, sehir:"İstanbul", ad:"İstanbulun Sefiri", tur:"Hünkâr Sancağı", slogan:"Biat edene özgürlük", biat:11, fiyat:0, hukumdar:"Kültigi Kaan", ikon:"🕌", zirve:true},
-  {id:22, sehir:"Edirne",   ad:"Edirne Sancağı",     tur:"Youtube Kanalım", slogan:"Siz olun abiler konuşurken araya girmesin.", biat:1, fiyat:0, hukumdar:"Akazinyo", ikon:"▶", zirve:false},
-  {id:6,  sehir:"Adana",    ad:"Çukurova Sancağı",   tur:"Şırdan Locası",   slogan:"Şırdan bizden sorulur.", biat:7, fiyat:0, hukumdar:"Toroslu", ikon:"🌶", zirve:false},
-  {id:35, sehir:"İzmir",    ad:"Ege Sancağı",        tur:"Gençlik Boyu",    slogan:"Rüzgar bizden yana.", biat:5, fiyat:0, hukumdar:"Efe", ikon:"⚓", zirve:false}
-];
+app.use('/api', sancaklarRouter);
+app.use('/api', muharebeRouter);
+app.use('/api', meyhaneRouter);
+app.use('/api', ilBiatRouter);
 
-var muharebe = { A: 147, B: 140 }; // Adana vs Mersin
-
-// kullanicilarin kurdugu meyhaneler (RECODE: bunu da dosyaya/DB'ye yaz)
-var meyhaneler = [];
-
-// -------- API: sancaklari getir --------
-app.get('/api/sancaklar', function(req, res){
-  res.json(sancaklar);
+// bilinmeyen /api/* rotalari icin duzgun bir 404 (varsayilan Express
+// HTML sayfasi yerine JSON donuyor -- frontend zaten JSON bekliyor)
+app.use('/api', function (req, res) {
+  res.status(404).json({ ok: false, hata: 'Bilinmeyen uç nokta.' });
 });
 
-// -------- API: yeni sancak/ferman ekle --------
-app.post('/api/sancaklar', function(req, res){
-  var y = req.body;
-  // RECODE: burada dogrulama yok! bos/kotu veri direkt giriyor.
-  sancaklar.push(y);
-  res.json({ ok: true, eklenen: y });
-});
-
-// -------- API: bir sancaga biat (oy) ver --------
-app.post('/api/biat', function(req, res){
-  var id = req.body.id;
-  for (var i = 0; i < sancaklar.length; i++){
-    if (sancaklar[i].id === id){
-      sancaklar[i].biat++;
-    }
+// merkezi hata yakalama: JSON body parse hatasi (bozuk istek govdesi)
+// ya da rotalardan next(err) ile gelen herhangi bir hata buraya duser.
+app.use(function (err, req, res, next) { // eslint-disable-line no-unused-vars
+  if (err && err.type === 'entity.parse.failed') {
+    return res.status(400).json({ ok: false, hata: 'Geçersiz JSON gövdesi.' });
   }
-  res.json({ ok: true });
+  console.error('Beklenmeyen hata:', err);
+  res.status(500).json({ ok: false, hata: 'Sunucuda beklenmeyen bir hata oluştu.' });
 });
 
-// -------- API: meydan muharebesi durumu --------
-app.get('/api/muharebe', function(req, res){
-  res.json(muharebe);
+app.listen(PORT, function () {
+  console.log('81 SANCAK backend ayakta -> http://localhost:' + PORT);
 });
 
-// -------- API: muharebede oy ver --------
-app.post('/api/oy', function(req, res){
-  var taraf = req.body.taraf; // "A" veya "B"
-  // RECODE: 30 dakikalik oy kilidi burada olmali ama yok!
-  if (taraf === 'A') muharebe.A++;
-  else if (taraf === 'B') muharebe.B++;
-  res.json(muharebe);
-});
-
-// -------- API: meyhaneleri getir --------
-app.get('/api/meyhane', function(req, res){
-  res.json(meyhaneler);
-});
-
-// -------- API: yeni meyhane kur --------
-app.post('/api/meyhane', function(req, res){
-  // RECODE: dogrulama yok, ayni isimde 100 meyhane acilabilir :)
-  meyhaneler.push(req.body);
-  res.json({ ok: true });
-});
-
-app.listen(PORT, function(){
-  console.log("81 SANCAK backend ayakta -> http://localhost:" + PORT);
-});
+module.exports = app; // testlerin app'i require edebilmesi icin

@@ -6,31 +6,10 @@
 <title>Meyhane Kur — 81 SANCAK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 
-<!-- RECODE NOTU: Evet, CSS burada da tekrar ediyor. Ortak dosyaya cikar! -->
+<!-- RECODE: ortak CSS artik styles.css'te; burada sayfaya ozgu stiller. -->
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0c0b09;color:#e9e2d0;font-family:'Inter',sans-serif;min-height:100vh;
-  background-image:radial-gradient(circle at 50% -10%, rgba(212,175,55,0.10), transparent 55%)}
-a{color:inherit;text-decoration:none}
-.navbar{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;
-  border-bottom:1px solid #2a2418;background:#0f0d0a;position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:10px}
-.logo{display:flex;align-items:center;gap:12px}
-.logo .kutu{width:44px;height:44px;border-radius:10px;background:linear-gradient(145deg,#d4af37,#8a6d1c);
-  display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 18px rgba(212,175,55,0.55)}
-.logo b{font-family:'Cinzel',serif;font-size:20px;letter-spacing:1px}
-.logo small{display:block;color:#9c9282;font-size:11px;letter-spacing:3px}
-.nav-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-.nav-links a{color:#c9bfa8;font-size:14px;font-weight:500;transition:.2s}
-.nav-links a:hover{color:#f0d264;text-shadow:0 0 10px rgba(240,210,100,.6)}
-.nav-links a.aktif{color:#f0d264}
-.btn{cursor:pointer;border:none;border-radius:9px;padding:10px 18px;font-size:14px;font-weight:600;
-  transition:.2s;font-family:'Inter',sans-serif}
-.btn-altin{background:linear-gradient(145deg,#e6c65c,#b8901f);color:#1a1408;box-shadow:0 0 16px rgba(212,175,55,.4)}
-.btn-altin:hover{box-shadow:0 0 26px rgba(212,175,55,.75);transform:translateY(-1px)}
-.btn-hayalet{background:transparent;color:#e9e2d0;border:1px solid #3a3223}
-.btn-hayalet:hover{border-color:#d4af37;color:#f0d264}
-
 .duzen{max-width:1180px;margin:34px auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
 @media(max-width:860px){.duzen{grid-template-columns:1fr}}
 
@@ -81,7 +60,6 @@ input:focus,select:focus{outline:none;border-color:#d4af37;box-shadow:0 0 12px r
 .mey-sil{margin-top:12px;color:#ff7676;font-size:12px;cursor:pointer;background:none;border:none}
 .mey-sil:hover{text-decoration:underline}
 .bos-liste{color:#9c9282;padding:30px;text-align:center;grid-column:1/-1}
-footer{border-top:1px solid #221d13;text-align:center;padding:24px;color:#6b5f45;font-size:13px}
 </style>
 </head>
 <body>
@@ -166,6 +144,7 @@ footer{border-top:1px solid #221d13;text-align:center;padding:24px;color:#6b5f45
 <footer><b>81 SANCAK</b> — Meyhaneler <code style="color:#e6c65c">/api/meyhane</code>'ye gider, kapalıysa localStorage'da tutulur.</footer>
 
 <script src="iller.js"></script>
+<script src="assets/js/util.js"></script>
 <script>
 // ---- secenek verileri (RECODE: bunlari backend'den cekebilirsin) ----
 var AMBLEMLER = ["🍷","🍇","🎻","🐟","🌙","🔥","⚓","🍋","🫒","☕"];
@@ -262,8 +241,10 @@ function meyhaneleriKaydet(l){ localStorage.setItem('meyhaneler', JSON.stringify
 
 function meyhaneKur(){
   var ad = document.getElementById('mad').value.trim();
-  // RECODE NOTU: dogrulama cok zayif. Sadece ad kontrol ediliyor.
+  // RECODE (dogrulama): eskiden sadece "bos mu" kontrol ediliyordu.
   if(!ad){ alert('Meyhanene bir isim ver bey!'); return; }
+  if(ad.length < 2){ alert('Meyhane adı en az 2 karakter olmalı.'); return; }
+  if(ad.length > 60){ alert('Meyhane adı 60 karakteri geçemez.'); return; }
 
   var yeni = {
     id: Date.now(),
@@ -317,16 +298,19 @@ function listeCiz(liste){
     return;
   }
   liste.forEach(function(m){
+    // RECODE (guvenlik): meyhane adi, il/ilce, hava, icki ve mezeler --
+    // hepsi kullanicidan geliyor ve eskiden dogrudan innerHTML'e
+    // yaziliyordu. Simdi escapeHtml() ile kaciyoruz.
     var k = document.createElement('div');
     k.className='mey-kart';
-    var mezeHtml = (m.mezeler||[]).map(function(x){ return '<span>'+x+'</span>'; }).join('');
+    var mezeHtml = (m.mezeler||[]).map(function(x){ return '<span>'+escapeHtml(x)+'</span>'; }).join('');
     k.innerHTML =
-      '<div class="m-amblem">'+m.amblem+'</div>' +
-      '<h3>'+m.ad+'</h3>' +
-      '<div class="m-konum">📍 '+m.il+' · '+m.ilce+' &nbsp;|&nbsp; '+m.hava+'</div>' +
-      '<div class="m-konum" style="color:#e6c65c">🥃 '+m.icki+'</div>' +
+      '<div class="m-amblem">'+escapeHtml(m.amblem)+'</div>' +
+      '<h3>'+escapeHtml(m.ad)+'</h3>' +
+      '<div class="m-konum">📍 '+escapeHtml(m.il)+' · '+escapeHtml(m.ilce)+' &nbsp;|&nbsp; '+escapeHtml(m.hava)+'</div>' +
+      '<div class="m-konum" style="color:#e6c65c">🥃 '+escapeHtml(m.icki)+'</div>' +
       '<div class="m-mezeler">'+ (mezeHtml || '<span>meze yok</span>') +'</div>' +
-      '<button class="mey-sil" onclick="meyhaneSil('+m.id+')">✕ Meyhaneyi kapat</button>';
+      '<button class="mey-sil" onclick="meyhaneSil('+Number(m.id||0)+')">✕ Meyhaneyi kapat</button>';
     g.appendChild(k);
   });
 }

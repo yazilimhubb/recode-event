@@ -1,0 +1,7 @@
+node_modules/
+npm-debug.log*
+
+# calisirken olusan kalici veri -- ilk calistirmada lib/store.js
+# varsayilan veriyle bu dosyayi otomatik olusturur.
+data/store.json
+data/store.json.tmp
